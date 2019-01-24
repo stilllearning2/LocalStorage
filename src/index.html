@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>HTML 5 Web Storage</title>
 
-    <link href="reset.css" type="text/css" rel="stylesheet" />
+    <!--link href="reset.css" type="text/css" rel="stylesheet" / -->
     <link href="style.css" type="text/css" rel="stylesheet" />
 
     <script>
@@ -12,41 +12,33 @@
         window.addEventListener("load",init);
 
         function init(){
-            
-            if(window.localStorage) {
-                alert('ls exists');
-            } else {
-                alert('ls does not exist');
-            }
-            
-            if(typeof(Storage)!=="undefined") {
+			console.log(typeof(Storage));
+            if(typeof Storage !=="undefined") {
                 // display saved values if any
                 display();
 
-                // set button listener
+                // add click listener to button
                 var button=document.getElementById("saveButton");
                 button.addEventListener("click", saveInfo);
             }
             else{
-                // show alert
-                alert("Local Storage is not available on this browser.")	
+                document.getElementById("wrapper").innerHTML="No local storage!";	
             }
         }
 
         function saveInfo(){
             // get values from input
-            alert("saveInfo");
-            var custNameIn=document.qurySelector("#custName").value;
-            var donutTypeIn=document.qurySelector("#donutType").value;
-            var icingIn=document.qurySelector("#icing").value;
-            var toppingIn=document.qurySelector("#topping").value;
-            var donutQtyIn=document.qurySelector("#donutQty").value;
+            var custNameIn=document.getElementById("custName").value;
+            var donutTypeIn=document.getElementById("donutType").value;
+            var icingIn=document.getElementById("icing").value;
+            var toppingsIn=document.getElementById("toppings").value;
+            var donutQtyIn=document.getElementById("donutQty").value;
 
             // save to local storage
             localStorage.setItem("custName",custNameIn);
             localStorage.setItem("donutType",donutTypeIn);
             localStorage.setItem("icing",icingIn);
-            localStorage.setItem("topping",toppingIn);
+            localStorage.setItem("toppings",toppingsIn);
             localStorage.setItem("donutQty",donutQtyIn);
 
             display();
@@ -54,36 +46,37 @@
 
         function display(){
             // get values from local storage
-            let rightBox=document.getElementById("useroutputtext");
-            
-            let custNameOut=localStorage.getItem("custName");
-            let donutTypeOut=localStorage.getItem("donutType");
-            let icingOut=localStorage.getItem("icing");
-            let toppingOut=localStorage.getItem("topping");
-            let donutQtyOut=localStorage.getItem("donutQty");
+            var rightBox=document.getElementById("useroutputtext");          
+            var custNameOut=localStorage.getItem("custName");
+            var donutTypeOut=localStorage.getItem("donutType");
+            var icingOut=localStorage.getItem("icing");
+            var toppingsOut=localStorage.getItem("toppings");
+            var donutQtyOut=localStorage.getItem("donutQty");
+			
+			var msg = "Customer Name:  "+custNameOut+"<br /><br />"
+					+ "Donut Type:  "+donutTypeOut+"<br /><br />"
+					+ "Icing:  "+icingOut+"<br /><br />"
+					+ "Toppings:  "+toppingsOut+"<br /><br />"
+					+ "Quantity:  "+donutQtyOut+"<br /><br />"
+			
+			console.log(msg);
 
-            if (custNameOut=="undefined"){
-                document.getElementById("useroutputtext").innerHTML="OUTPUT <hr />";
+            if (rightBox=="undefined"){
+                document.getElementById("useroutputtext").innerHTML="whatever";
             }
             else { 
-                document.getElementById("useroutputtext").innerHTML="OUTPUT <hr /><br /><br />" + 
-                    "Customer Name: "+custNameOut+"<br /><br />" +
-                    "Donut Type: "+donutTypeOut+"<br /><br />" +
-                    "Icing: "+icingOut+"<br /><br />" +
-                    "Toppings: "+toppingsout+"<br /><br />" +
-                    "Quantity: +"donutQtyOut;
+                document.getElementById("useroutputtext").innerHTML=msg;
             }
         }
     </script>
 </head>
 
 <body>
-
     <div id="main">
         <section id="userinput">
             INPUT <br>
             <hr />
-            <br /><br />
+            <br />
             <form id="inputForm">
                 <fieldset id="orderForm">
                     <legend id="orderlegend">Donut Order Form</legend>
@@ -94,22 +87,22 @@
                     <br />
                     <label for="donutType">Donut Type:</label> 
                     <br />
-                    <input type="input" class="donutType" id="donutType" size="30"> 
+                    <input type="input" class="inputText" id="donutType" size="30"> 
                     <br /> 
                     <br />
                     <label for="icing">Icing:</label> 
                     <br />
-                    <input type="input" class="donutType" id="icing" size="30">
+                    <input type="input" class="inputText" id="icing" size="30">
                     <br /> 
                     <br />
                     <label for="toppings">Toppings:</label> 
                     <br />
-                    <input type="input" class="toppings" id="toppings" size="30">
+                    <input type="input" class="inputText" id="toppings" size="30">
                     <br /> 
                     <br />
                     <label for="donutqty">Quantity:</label> 
                     <br />
-                    <input type="input" class="donutqty" id="donutqty" size="10">
+                    <input type="input" class="inputText" id="donutQty" size="10">
                     <br /> 
                     <br />
                     <input type="button" id="saveButton" value="Save">              
@@ -118,10 +111,17 @@
         </section>
 
         <section id="useroutput">
-            <div id="useroutputtext">
-                
-            </div>      
-            <image src="../images/donutsmore.jpg" alt="marshmallow filled donut with marshmallow spread and a Hershey's chocolate square on top" id="outputphoto"></image>
+			<div id="wrapper">
+				OUTPUT <hr /><br />
+
+				<div id="useroutputtext">
+					
+
+				</div>      
+				<div id="image" >
+					<image 	src="../images/donutsmore.jpeg" alt="marshmallow filled donut with marshmallow spread and a Hershey's chocolate square on top" id="outputphoto"></image>
+				</div>
+			</div>
 
         </section>
     </div>
